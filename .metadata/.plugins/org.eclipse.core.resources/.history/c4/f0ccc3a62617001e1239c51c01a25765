@@ -1,0 +1,5 @@
+package com.ust.security.Ctrlr;
+
+public class EmployeeResource {
+
+}

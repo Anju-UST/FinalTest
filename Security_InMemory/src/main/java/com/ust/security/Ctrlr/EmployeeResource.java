@@ -1,0 +1,33 @@
+package com.ust.security.Ctrlr;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class EmployeeResource {
+	
+	@GetMapping("/forAll")//accessed by both user and admin and staff
+	public String greet() {
+		return "working";
+	}
+
+	@GetMapping
+	@RequestMapping("/admin")
+	public String greetAdmin() {
+		return "admin@Work";
+		
+	}
+	
+	@GetMapping
+	@RequestMapping("/user")
+	public String greetUser() {
+		return "User@Work";
+	}
+
+	@GetMapping
+	@RequestMapping("/both")
+	public String greety() {
+		return "greety";
+	}
+}

@@ -1,0 +1,51 @@
+package com.ust.stud.Ctrlr;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ust.stud.Repo.StudentRepo;
+import com.ust.stud.model.Student;
+
+@RestController
+@RequestMapping("/stud")
+public class StudentController {
+	
+	@Autowired 
+	StudentRepo repo;
+	
+	@PostMapping("/create")
+	public ResponseEntity<Student> createStudent(@RequestBody Student s){
+		repo.save(s);
+		return ResponseEntity.ok().body(s);
+			
+	}
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<?> getStudent(@PathVariable Long id){
+		Optional<Student>op=repo.findById(id);
+		if(op.isPresent()) {
+			return ResponseEntity.ok().body(op.get());
+		}
+		else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+		@GetMapping("/getall")
+		public ResponseEntity<List<Student>> GetStudents(){
+			List<Student> op=repo.findAll();
+			return ResponseEntity.ok().body(op);
+		}
+			
+		
+	
+}	
+

@@ -1,0 +1,83 @@
+package com.ust.stud.Ctrlr;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ust.stud.Repo.StudentRepo;
+import com.ust.stud.model.Student;
+
+@RestController
+@RequestMapping("/stud")
+public class StudentController {
+	
+	@Autowired 
+	StudentRepo repo;
+	
+	@PostMapping("/create")
+	public ResponseEntity<Student> createStudent(@RequestBody Student s){
+		repo.save(s);
+		return ResponseEntity.ok().body(s);
+			
+	}
+	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<?> getStudent(@PathVariable Long id){
+		Optional<Student>op=repo.findById(id);
+		if(op.isPresent()) {
+			return ResponseEntity.ok().body(op.get());
+		}
+		else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+		@GetMapping("/getall")
+		public ResponseEntity<List<Student>> GetStudents(){
+			List<Student> op=repo.findAll();
+			return ResponseEntity.ok().body(op);
+		}
+		
+		@PutMapping("/update/{id}")
+		public ResponseEntity<Student> Update(@RequestBody Student s , @PathVariable Long id){
+			Optional<Student> op=repo.findById(id);
+			Student st=null;
+			if(op.isPresent()) {
+				st=op.get();
+				st.setId(s.getId());
+				st.setName(s.getName());
+				st.setAge(s.getAge());
+				repo.save(st);
+				
+				return ResponseEntity.ok().body(st);
+			}
+			else {
+				return ResponseEntity.noContent().build();
+			}
+			
+			
+		}
+		@DeleteMapping("/{id}")
+		public ResponseEntity<String> delete(@PathVariable Long id){
+			Optional <Student>op=repo.findById(id);
+			if(op.isPresent()) {
+			repo.deleteById(id);
+			return ResponseEntity.ok().body("deleted");
+			}
+			else
+				return ResponseEntity.noContent().build();
+		}
+			 
+		
+	
+}	
+

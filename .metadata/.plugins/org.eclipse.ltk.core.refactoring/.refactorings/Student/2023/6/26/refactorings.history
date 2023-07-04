@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Student.java&apos; to &apos;Office/src/main/java/com.ust.office.Model&apos;&#x0D;&#x0A;- Original project: &apos;Student&apos;&#x0D;&#x0A;- Destination element: &apos;Office/src/main/java/com.ust.office.Model&apos;&#x0D;&#x0A;- Original element: &apos;com.ust.stud.model.Student.java&apos;" description="Copy compilation unit" destination="=Office/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ust.office.Model" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ust.stud.model{Student.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1688107008286" units="1" version="1.0"/>
+</session>
